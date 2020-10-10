@@ -35,11 +35,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
@@ -146,18 +141,15 @@
                         <configuration>
                             <!-- specify the swagger yaml -->
                             <inputSpec>${project.basedir}/src/main/resources/openapi/swagger.yaml</inputSpec>
-
                             <!-- target to generate java client code -->
                             <language>java</language>
-
+                            <generateApiTests>false</generateApiTests>
                             <!-- hint: if you want to generate java server code, e.g. based on Spring Boot,
                                  you can use the following target: <language>spring</language> -->
-
                             <!-- pass any necessary config options -->
                             <configOptions>
                                 <dateLibrary>joda</dateLibrary>
                             </configOptions>
-
                             <!-- override the default library to jersey2 -->
                             <library>jersey2</library>
                         </configuration>
