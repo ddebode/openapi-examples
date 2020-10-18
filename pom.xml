@@ -142,16 +142,19 @@
                             <!-- specify the swagger yaml -->
                             <inputSpec>${project.basedir}/src/main/resources/openapi/swagger.yaml</inputSpec>
                             <!-- target to generate java client code -->
-                            <language>java</language>
+                            <language>spring</language>
+                            <library>spring-boot</library>
                             <generateApiTests>false</generateApiTests>
+                            <generateModels>true</generateModels>
+                            <generateApis>true</generateApis>
                             <!-- hint: if you want to generate java server code, e.g. based on Spring Boot,
                                  you can use the following target: <language>spring</language> -->
                             <!-- pass any necessary config options -->
                             <configOptions>
                                 <dateLibrary>joda</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
                             </configOptions>
                             <!-- override the default library to jersey2 -->
-                            <library>jersey2</library>
                         </configuration>
                     </execution>
                 </executions>
