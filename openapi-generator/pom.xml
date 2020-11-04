@@ -33,6 +33,11 @@
             <version>0.2.1</version>
         </dependency>
         <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.8</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -62,7 +67,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.parent.basedir}/openapi-spec-files/swagger.yaml</inputSpec>
+                            <inputSpec>${project.parent.basedir}/openapi-spec-files/2.0/swagger.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <dateLibrary>joda</dateLibrary>

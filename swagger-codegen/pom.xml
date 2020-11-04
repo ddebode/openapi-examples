@@ -126,7 +126,7 @@
                         </goals>
                         <configuration>
                             <!-- specify the swagger yaml -->
-                            <inputSpec>${project.parent.basedir}/openapi-spec-files/swagger.yaml</inputSpec>
+                            <inputSpec>${project.parent.basedir}/openapi-spec-files/2.0/swagger.yaml</inputSpec>
                             <!-- target to generate java client code -->
                             <language>spring</language>
                             <library>spring-boot</library>

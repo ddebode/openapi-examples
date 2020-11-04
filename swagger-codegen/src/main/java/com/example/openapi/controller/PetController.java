@@ -3,6 +3,7 @@ package com.example.openapi.controller;
 import io.swagger.api.PetApi;
 import io.swagger.model.ModelApiResponse;
 import io.swagger.model.Pet;
+import io.swagger.model.Pet2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,11 @@ import java.util.List;
 
 @RestController
 public class PetController implements PetApi {
+
+    @Override
+    public ResponseEntity<Void> addPet(@Valid Pet2 body) {
+        return null;
+    }
 
     @Override
     public ResponseEntity<Void> deletePet(Long petId, String apiKey) {
@@ -35,12 +41,7 @@ public class PetController implements PetApi {
     }
 
     @Override
-    public ResponseEntity<Void> petPost() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Void> updatePet(@Valid Pet body) {
+    public ResponseEntity<Void> updatePet(@Valid Pet2 body) {
         return null;
     }
 
