@@ -33,7 +33,7 @@ schemes:
 paths:
   /pet:
     post:
-      $ref: "pet-post.yaml"
+      $ref: "./pet-post.yaml"
     put:
       tags:
         - "pet"

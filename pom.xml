@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>openapi-generator</module>
         <module>swagger-codegen</module>
     </modules>
 </project>
