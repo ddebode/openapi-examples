@@ -20,6 +20,20 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
@@ -37,26 +51,35 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>4.3.1</version>
                 <executions>
                     <execution>
+                        <id>spring-boot-api</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
                             <inputSpec>${project.parent.basedir}/openapi-spec-files/swagger.yaml</inputSpec>
-                            <generatorName>java</generatorName>
+                            <generatorName>spring</generatorName>
                             <configOptions>
-                                <sourceFolder>src/gen/java/main</sourceFolder>
+                                <dateLibrary>joda</dateLibrary>
+                                <interfaceOnly>true</interfaceOnly>
                             </configOptions>
+                            <library>spring-boot</library>
+<!--                            <apiPackage>com.bol.service.trafficservice.server.endpoint.v3</apiPackage>-->
+<!--                            <modelPackage>com.bol.service.trafficservice.server.endpoint.v3.model</modelPackage>-->
+<!--                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>-->
+                            <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                            <generateApiDocumentation>false</generateApiDocumentation>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+
         </plugins>
     </build>
 </project>
