@@ -72,15 +72,15 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.parent.basedir}/openapi-spec-files/2.0/swagger.yaml</inputSpec>
+                            <inputSpec>${project.parent.basedir}/openapi-spec-files/3.0/swagger.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <dateLibrary>joda</dateLibrary>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
                             <library>spring-boot</library>
-<!--                            <apiPackage>com.bol.service.trafficservice.server.endpoint.v3</apiPackage>-->
-<!--                            <modelPackage>com.bol.service.trafficservice.server.endpoint.v3.model</modelPackage>-->
+<!--                            <apiPackage>com.example.openapi.server.endpoint.v3</apiPackage>-->
+<!--                            <modelPackage>com.example.openapi.endpoint.v3.model</modelPackage>-->
 <!--                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>-->
                             <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
                             <generateApiDocumentation>false</generateApiDocumentation>
