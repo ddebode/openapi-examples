@@ -64,7 +64,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>4.3.1</version>
+                <version>${openapi-generator.version}</version>
                 <executions>
                     <execution>
                         <id>spring-boot-api</id>
@@ -72,6 +72,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+			    <!-- https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md -->
                             <inputSpec>${project.parent.basedir}/openapi-spec-files/2.0/swagger.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
