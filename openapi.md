@@ -136,7 +136,7 @@ paths:
 
 - OpenApi-Generator 
 - Swagger Codegen   
-- Swagger UI - OpenAPI UI 
+- Swagger UI 
 
 https://github.com/OpenAPITools/openapi-generator
 https://swagger.io/tools/swagger-codegen/
