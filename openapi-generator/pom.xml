@@ -79,8 +79,8 @@
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
                             <library>spring-boot</library>
-<!--                            <apiPackage>com.example.openapi.server.endpoint.v3</apiPackage>-->
-<!--                            <modelPackage>com.example.openapi.endpoint.v3.model</modelPackage>-->
+                            <apiPackage>com.example.openapi.server.endpoint.v3</apiPackage>
+                            <modelPackage>com.example.openapi.endpoint.v3.model</modelPackage>
 <!--                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>-->
                             <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
                             <generateApiDocumentation>false</generateApiDocumentation>

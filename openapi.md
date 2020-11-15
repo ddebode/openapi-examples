@@ -2,7 +2,7 @@
 %author: ddebode
 %date: 2020-11-07
 
--> # Openapi - presentation <-
+-> # OpenAPI - definition <-
 ==============================
 
 The OpenAPI Specification (OAS) defines a standard, language-agnostic interface to RESTful APIs 
@@ -15,290 +15,131 @@ An OpenAPI definition can then be used by documentation generation tools to disp
 code generation tools to generate servers and clients in various programming languages, 
 testing tools, and many other use cases.
 
+http://spec.openapis.org/oas/v3.0.3
+https://swagger.io/specification/
+
 -------------------------------------------------
 
 -> # History <-
 
-2011 first version released of Swagger spec
-2015 Acquired by Smartbear
-2016 Swagger specification renamed to OpenAPI Specification
-2017 OpenAPI 3.0.0 is released
+*2011* first version released of Swagger specification
+*2015* Acquired by Smartbear
+*2016* Swagger specification renamed to OpenAPI Specification
+*2017* OpenAPI 3.0.0 is released
 
 -------------------------------------------------
 
 -> # 3.0 vs 2.0 <-
 
+What are the main differences?
 
 -------------------------------------------------
 
--> # Supported markdown formatting <-
+-> # 3.0 vs 2.0 <-
 
-Second-level headers can be prefixed by *##* or
-underlined by *---*.
+3.0 has a more simplified structure
 
-second-level
-\------------
-
-becomes
-
-second-level
-------------
-
+openapiv2-v3.jpeg 
 
 -------------------------------------------------
 
--> # Supported markdown formatting's <-
+-> # 3.0 vs 2.0 <-
 
-Inline codes are surrounded with backticks.
+In 3.0 you can define multiple url's
 
-C program starts with \`main()\`.
-
-becomes
-
-C program starts with `main()`.
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-Code blocks are automatically detected by 4 spaces
-at the beginning of a line.
-
-Tabs are automatically expanded to 4 spaces while
-parsing the input.
-
-\    int main(int argc, char \*argv[]) {
-\        printf("%s\\n", "Hello world!");
-\    }
-
-becomes
-
-    int main(int argc, char *argv[]) {
-        printf("%s\n", "Hello world!");
-    }
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-You can also use [pandoc](https://pandoc.org/MANUAL.html#fenced-code-blocks)'s fenced code block
-extension. Use at least three ~ chars to open and
-at least as many or more ~ for closing.
-
-\~~~ {.numberLines}
-\int main(int argc, char \*argv[]) {
-\    printf("%s\\n", "Hello world!");
-\}
-\~~~~~~~~~~~~~~~~~~
-
-becomes
-
-~~~ {.numberLines}
-int main(int argc, char *argv[]) {
-    printf("%s\n", "Hello world!");
-}
-~~~~~~~~~~~~~~~~~~
-
-Pandoc attributes (like ".numberlines" etc.)
-will be ignored
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-You can also use [github](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) flavored markdown's
-code block. Use at least three backticks to open
-and at least as many or more backticks for closing.
-
-\```
-\int main(int argc, char \*argv[]) {
-\    printf("%s\\n", "Hello world!");
-\}
-\```
-
-becomes
-
+3.0
 ```
-int main(int argc, char *argv[]) {
-    printf("%s\n", "Hello world!");
-}
+servers:
+  - url: https://api.example.com/v1
+    description: Production server (uses live data)
+  - url: https://sandbox-api.example.com:8443/v1
+    description: Sandbox server (uses test data)
+```  
+
+2.0
+```
+host: "api.example.com"
+basePath: "/v1"
 ```
 
-Language hint will be ignored
+-------------------------------------------------
+
+-> # 3.0 vs 2.0 <-
+
+3.0 has support for describing callbacks
+
+```
+paths:
+  /subscribe:
+    post:
+      summary: Subscribe to a webhook
+      requestBody:
+        …
+      callbacks:   # Callback definition
+        myEvent:   # Event name
+          '{$request.body#/callbackUrl}':   # The callback URL,
+                                            # Refers to the passed URL
+            post:
+              requestbody:   # contents of the callback message
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: some event happened
+                      required:
+                        - message
+              responses:   # expected responses to the callback message
+                '200':
+                  description: your server returns this code if it accepts the callback
+```
 
 -------------------------------------------------
 
--> # Supported markdown formatting <-
 
-Quotes are auto-detected by preceding *>*.
+-> # 3.0 vs 2.0 <-
 
-Multiple *>* are interpreted as nested quotes.
+In 3.0 links are introduced
 
-\> quote
-\>> nested quote 1
-\> > nested quote 2
-
-becomes
-
-> quote
->> nested quote 1
-> > nested quote 2
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-Inline highlighting is supported as followed:
-
-\- *\** colors text as red
-\- *\_* underlines text
-
-\_some\_ \*highlighted\* \_\*text\*\_
-
-becomes
-
-_some_ *highlighted* _*text*_
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-Backslashes force special markdown characters
-like *\**, *\_*, *#* and *>* to be printed as
-normal characters.
-
-\\\*special\\\*
-
-becomes
-
-\*special\*
+```
+paths:
+  /users:
+    post:
+      summary: Creates a user and returns the user ID
+      operationId: createUser
+      requestBody:
+        required: true
+        description: A JSON object that contains the user name and age.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          ...
+          links:
+            GetUserByUserId:   # <---- arbitrary name for the link
+              operationId: getUser
+              parameters:
+                userId: '$response.body#/id'
+              description: >
+                The `id` value returned in the response can be used as
+                the `userId` parameter in `GET /users/{userId}`.
+```
 
 -------------------------------------------------
 
--> # Supported markdown formatting <-
+-> # Demo tools <-
 
-Leading *\** or *-* indicate lists.
+- OpenApi-Generator 
+- Swagger Codegen   
+- Swagger UI - OpenAPI UI 
 
-list
-\* major
-\    - minor
-\        - \*important\*
-\          detail
-\    - minor
-
-becomes
-
-list
-* major
-    - minor
-        - *important*
-          detail
-    - minor
+https://github.com/OpenAPITools/openapi-generator
+https://swagger.io/tools/swagger-codegen/
+https://openapi.tools/
 
 -------------------------------------------------
-
--> # Supported markdown formatting <-
-
-A single *\<br\>* or *^* in a line indicates mdp
-to stop the output on that position.
-
-This can be used to show bullet points
-line by line.
-
-*\<br\>* is also not displayed in HTML converted
-output.
-
-Agenda
-<br>
-* major
-<br>
-    * minor
-<br>
-* major
-  ^
-    * minor
-      ^
-        * detail
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-Leading *->* indicates centering.
-
-\-> # test <-
-\-> ## test <-
-\-> test
-\-> \_\*test\*\_ <-
-
-becomes
-
--> # test <-
--> ## test <-
--> test
--> _*test*_ <-
-
--------------------------------------------------
-
--> # Supported markdown formatting <-
-
-URL in pandoc style are supported:
-
-\[Google](http://www.google.com/)
-
-becomes
-
-[Google](http://www.google.com/)
-
--------------------------------------------------
-
--> ## More information about markdown <-
-
-can be found in the [markdown documentation](http://daringfireball.net/projects/markdown/).
-
--------------------------------------------------
-
--> # Support for UTF-8 special characters <-
-
-Here are some examples.
-
-ae = ä, oe = ö, ue = ü, ss = ß
-upsilon = Ʊ, phi = ɸ
-
-▛▀▀▀▀▀▀▀▀▀▜
-▌rectangle▐
-▙▄▄▄▄▄▄▄▄▄▟
-
-
--------------------------------------------------
-
--> # Suspend your presentation for hands-on examples <-
-
-Use *Ctrl + z* to suspend the presentation.
-
-Use *fg* to resume it.
-
--------------------------------------------------
-
--> # Convert your presentation to PDF <-
-
-To publish your presentation later on, you may
-want to convert it to PDF.
-
-This can be achieved by two additional tools:
-
-\- *markdown* to convert to HTML
-\- *wkhtmltopdf* to convert from HTML to PDF
-
-After installing them, you can simply type:
-
-    $ markdown sample.md | wkhtmltopdf - sample.pdf
-
--------------------------------------------------
-
--> ## Last words <-
-
-I hope you like *mdp*.
-
-If you observe strange behavior, feel free to
-open an issue on [GitHub](https://github.com/visit1985/mdp).
